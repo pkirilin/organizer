@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "name": "Start API (dev)",
+            "request": "launch",
+            "command": "npm run dev",
+            "cwd": "${workspaceFolder}/organizer-api"
+        }
+    ]
+}
