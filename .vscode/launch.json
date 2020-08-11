@@ -1,6 +1,13 @@
 {
     "configurations": [
         {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/organizer-ui"
+        },
+        {
             "type": "node-terminal",
             "name": "Start API (dev)",
             "request": "launch",

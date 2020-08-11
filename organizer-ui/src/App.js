@@ -1,7 +1,11 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
+import Activities from './components/Activities';
 
-function App() {
-  return <div>App</div>;
+export default function App() {
+  return (
+    <Box>
+      <Activities></Activities>
+    </Box>
+  );
 }
-
-export default App;
