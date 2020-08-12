@@ -13,7 +13,7 @@ function Activities({ activities, getActivityItems }) {
     return <div>No activities planned</div>;
   }
 
-  return activities.map(a => <Activity key={a._id}></Activity>);
+  return activities.map(a => <Activity key={a._id} activity={a}></Activity>);
 }
 
 Activities.propTypes = {

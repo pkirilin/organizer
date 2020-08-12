@@ -1,5 +1,5 @@
 import 'date-fns';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dialog,
@@ -12,14 +12,54 @@ import {
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { connect } from 'react-redux';
+import { createActivity, getActivityItems, CREATE_ACTIVITY_SUCCESS } from '../../actions';
 
-function ActivityInputDialog({ title: dialogTitle, isOpened = false, onClose }) {
-  const [date, setDate] = useState();
+function ActivityInputDialog({
+  title: dialogTitle,
+  isOpened = false,
+  onClose,
+  createActivity,
+  getActivityItems,
+}) {
+  const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
+  const [isValidTitle, setIsValidTitle] = useState(true);
+
+  const validateTitle = () => {
+    return title.length > 4;
+  };
+
+  const validateTitleMemo = useCallback(validateTitle, [title]);
+
+  useEffect(() => {
+    if (!isValidTitle && validateTitleMemo()) {
+      setIsValidTitle(true);
+    }
+  }, [isValidTitle, title, validateTitleMemo]);
 
   if (!isOpened) {
     return null;
   }
+
+  const handleCreateActivity = async () => {
+    if (!validateTitle()) {
+      setIsValidTitle(false);
+      return;
+    }
+
+    setIsValidTitle(true);
+
+    const { type } = await createActivity({
+      date,
+      title,
+    });
+
+    if (type === CREATE_ACTIVITY_SUCCESS) {
+      onClose();
+      await getActivityItems();
+    }
+  };
 
   return (
     <Dialog open={isOpened} onClose={onClose} fullWidth>
@@ -40,6 +80,8 @@ function ActivityInputDialog({ title: dialogTitle, isOpened = false, onClose }) 
           </Grid>
           <Grid item>
             <TextField
+              error={!isValidTitle}
+              helperText={!isValidTitle ? 'Activity title is too short' : ''}
               label="Title"
               value={title}
               onChange={e => setTitle(e.target.value)}
@@ -49,8 +91,12 @@ function ActivityInputDialog({ title: dialogTitle, isOpened = false, onClose }) 
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button>Submit</Button>
+        <Button variant="contained" color="primary" onClick={handleCreateActivity}>
+          Create
+        </Button>
+        <Button variant="text" onClick={onClose}>
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   );
@@ -60,6 +106,11 @@ ActivityInputDialog.propTypes = {
   title: PropTypes.string.isRequired,
   isOpened: PropTypes.bool,
   onClose: PropTypes.func,
+  createActivity: PropTypes.func,
+  getActivityItems: PropTypes.func,
 };
 
-export default ActivityInputDialog;
+export default connect(null, dispatch => ({
+  createActivity: activity => dispatch(createActivity(activity)),
+  getActivityItems: () => dispatch(getActivityItems()),
+}))(ActivityInputDialog);

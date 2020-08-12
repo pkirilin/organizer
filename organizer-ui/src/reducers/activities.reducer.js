@@ -3,11 +3,11 @@ import { ACTIVITIES_REQUEST, ACTIVITIES_SUCCESS, ACTIVITIES_ERROR } from '../act
 export default function (state = [], action) {
   switch (action.type) {
     case ACTIVITIES_REQUEST:
-      return [];
+      return state;
     case ACTIVITIES_SUCCESS:
       return action.activityItems;
     case ACTIVITIES_ERROR:
-      return [];
+      return state;
     default:
       return state;
   }

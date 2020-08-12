@@ -13,21 +13,16 @@ export const getActivityItems = () => {
     dispatch(request());
 
     try {
-      const response = await fetch(`${apiUri}/activities`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(`${apiUri}/activities`);
 
-      if (response.ok) {
-        const activityItems = await response.json();
-        dispatch(success(activityItems));
-      } else {
-        dispatch(error());
+      if (!response.ok) {
+        return dispatch(error());
       }
+
+      const activityItems = await response.json();
+      return dispatch(success(activityItems));
     } catch (e) {
-      dispatch(error());
+      return dispatch(error());
     }
   };
 };
