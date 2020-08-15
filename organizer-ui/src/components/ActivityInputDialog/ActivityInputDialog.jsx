@@ -13,14 +13,14 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { connect } from 'react-redux';
-import { createActivity, getActivityItems, CREATE_ACTIVITY_SUCCESS } from '../../actions';
+import { createActivity, getActivityGroups, CREATE_ACTIVITY_SUCCESS } from '../../actions';
 
 function ActivityInputDialog({
   title: dialogTitle,
   isOpened = false,
   onClose,
   createActivity,
-  getActivityItems,
+  getActivityGroups,
 }) {
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
@@ -57,7 +57,7 @@ function ActivityInputDialog({
 
     if (type === CREATE_ACTIVITY_SUCCESS) {
       onClose();
-      await getActivityItems();
+      await getActivityGroups();
     }
   };
 
@@ -107,10 +107,10 @@ ActivityInputDialog.propTypes = {
   isOpened: PropTypes.bool,
   onClose: PropTypes.func,
   createActivity: PropTypes.func,
-  getActivityItems: PropTypes.func,
+  getActivityGroups: PropTypes.func,
 };
 
 export default connect(null, dispatch => ({
   createActivity: activity => dispatch(createActivity(activity)),
-  getActivityItems: () => dispatch(getActivityItems()),
+  getActivityGroups: () => dispatch(getActivityGroups()),
 }))(ActivityInputDialog);

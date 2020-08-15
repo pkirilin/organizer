@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button } from '@material-ui/core';
-import Activities from './components/Activities';
+import ActivityGroups from './components/ActivityGroups';
 import ActivityInputDialog from './components/ActivityInputDialog';
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
         isOpened={isActivityDialogOpened}
         onClose={() => setIsActivityDialogOpened(false)}
       ></ActivityInputDialog>
-      <Activities></Activities>
+      <ActivityGroups></ActivityGroups>
     </Box>
   );
 }

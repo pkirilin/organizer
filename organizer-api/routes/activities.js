@@ -27,6 +27,32 @@ router.get('/', async (request, response, next) => {
     }
 });
 
+router.get('/groups', async (request, response, next) => {
+    try {
+        const activityGroups = await Activity.aggregate([
+            {
+                $group: {
+                    _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+                    count: { $sum: 1 },
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    date: '$_id',
+                    count: 1,
+                },
+            },
+            {
+                $sort: { date: 1 },
+            },
+        ]);
+        response.json(activityGroups);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.get('/:id', async (request, response) => {
     response.json(request.activity);
 });
