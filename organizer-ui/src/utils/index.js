@@ -1,1 +1,3 @@
-export * from './http.utils';
+import httpClient from './http.utils';
+
+export { httpClient };

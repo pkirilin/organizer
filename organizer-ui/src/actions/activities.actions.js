@@ -1,4 +1,4 @@
-import { apiUri } from '../config';
+import { httpClient } from '../utils';
 
 export const ACTIVITY_GROUPS_REQUEST = 'ACTIVITY_GROUPS_REQUEST';
 export const ACTIVITY_GROUPS_SUCCESS = 'ACTIVITY_GROUPS_SUCCESS';
@@ -15,19 +15,8 @@ export const getActivityGroups = () => {
 
   return async dispatch => {
     dispatch(request());
-
-    try {
-      const response = await fetch(`${apiUri}/activities/groups`);
-
-      if (!response.ok) {
-        return dispatch(error());
-      }
-
-      const groups = await response.json();
-      return dispatch(success(groups));
-    } catch (e) {
-      return dispatch(error());
-    }
+    const groups = await httpClient.getAsync('/activities/groups', () => dispatch(error()));
+    return dispatch(success(groups));
   };
 };
 
@@ -38,23 +27,9 @@ export const getActivities = ({ date }) => {
 
   return async dispatch => {
     dispatch(request());
-
     let query = '';
-    if (date) {
-      query += `date=${date}`;
-    }
-
-    try {
-      const response = await fetch(`${apiUri}/activities?${query}`);
-
-      if (!response.ok) {
-        return dispatch(error());
-      }
-
-      const activities = await response.json();
-      return dispatch(success(activities));
-    } catch (e) {
-      return dispatch(error());
-    }
+    if (date) query += `date=${date}`;
+    const activities = await httpClient.getAsync(`/activities?${query}`, () => dispatch(error()));
+    return dispatch(success(activities));
   };
 };
