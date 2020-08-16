@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getActivityGroups } from '../../actions';
+import { getActivityGroups } from '../activities.actions';
 import PropTypes from 'prop-types';
-import ActivityGroupItem from '../ActivityGroupItem';
+import ActivityGroupItem from './ActivityGroupItem';
 import { Grid } from '@material-ui/core';
 
 function ActivityGroups({ groups, getActivityGroups }) {

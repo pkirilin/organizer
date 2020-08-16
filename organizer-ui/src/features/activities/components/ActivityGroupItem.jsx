@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardActions, Button, CardHeader } from '@material-ui/core';
-import ActivitiesListDialog from '../ActivitiesListDialog';
+import ActivitiesListDialog from './ActivitiesListDialog';
 
 function ActivityGroupItem({ group }) {
   const [isActivitiesListOpened, setIsActivitiesListOpened] = useState(false);

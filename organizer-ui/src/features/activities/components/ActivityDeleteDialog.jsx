@@ -8,12 +8,8 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import {
-  DELETE_ACTIVITY_SUCCESS,
-  deleteActivity,
-  getActivities,
-  getActivityGroups,
-} from '../../actions';
+import { deleteActivity, getActivities, getActivityGroups } from '../activities.actions';
+import { DELETE_ACTIVITY_SUCCESS } from '../activities.constants';
 import { connect } from 'react-redux';
 
 function ActivityDeleteDialog({

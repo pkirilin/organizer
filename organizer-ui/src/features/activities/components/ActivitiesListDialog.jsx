@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
-import ActivitiesList from '../ActivitiesList';
+import ActivitiesList from './ActivitiesList';
 
 function ActivitiesListDialog({ isOpened = false, onClose, activityDate }) {
   if (!isOpened) {

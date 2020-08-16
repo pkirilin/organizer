@@ -16,11 +16,10 @@ import { connect } from 'react-redux';
 import {
   createActivity,
   getActivityGroups,
-  CREATE_ACTIVITY_SUCCESS,
   updateActivity,
-  UPDATE_ACTIVITY_SUCCESS,
   getActivities,
-} from '../../actions';
+} from '../activities.actions';
+import { CREATE_ACTIVITY_SUCCESS, UPDATE_ACTIVITY_SUCCESS } from '../activities.constants';
 
 function ActivityInputDialog({
   title: dialogTitle,
@@ -37,7 +36,7 @@ function ActivityInputDialog({
   const [isValidTitle, setIsValidTitle] = useState(true);
 
   const validateTitle = () => {
-    return title.length > 4;
+    return title.length >= 4;
   };
 
   const validateTitleMemo = useCallback(validateTitle, [title]);

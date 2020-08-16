@@ -2,7 +2,7 @@ import {
   CREATE_ACTIVITY_REQUEST,
   CREATE_ACTIVITY_SUCCESS,
   CREATE_ACTIVITY_ERROR,
-} from '../actions';
+} from '../activities.constants';
 
 export default function (state = {}, action) {
   switch (action.type) {

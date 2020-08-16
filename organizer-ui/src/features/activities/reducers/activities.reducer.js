@@ -1,4 +1,4 @@
-import { ACTIVITIES_REQUEST, ACTIVITIES_SUCCESS, ACTIVITIES_ERROR } from '../actions';
+import { ACTIVITIES_REQUEST, ACTIVITIES_SUCCESS, ACTIVITIES_ERROR } from '../activities.constants';
 
 export default function (state = [], action) {
   switch (action.type) {

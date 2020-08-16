@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Table, TableBody, TableRow, TableCell, IconButton, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getActivities } from '../../actions';
-import ActivityInputDialog from '../ActivityInputDialog';
-import ActivityDeleteDialog from '../ActivityDeleteDialog';
+import { getActivities } from '../activities.actions';
+import ActivityInputDialog from './ActivityInputDialog';
+import ActivityDeleteDialog from './ActivityDeleteDialog';
 
 function ActivitiesList({ date, activities, getActivities }) {
   const [editDialogOptions, setEditDialogOptions] = useState({

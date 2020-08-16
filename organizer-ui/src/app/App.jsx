@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button } from '@material-ui/core';
-import ActivityGroups from './components/ActivityGroups';
-import ActivityInputDialog from './components/ActivityInputDialog';
+import { ActivityGroups, ActivityInputDialog } from '../features/activities';
 
 export default function App() {
   const [isActivityDialogOpened, setIsActivityDialogOpened] = useState(false);

@@ -2,7 +2,7 @@ import {
   ACTIVITY_GROUPS_REQUEST,
   ACTIVITY_GROUPS_SUCCESS,
   ACTIVITY_GROUPS_ERROR,
-} from '../actions';
+} from '../activities.constants';
 
 export default function (state = [], action) {
   switch (action.type) {
