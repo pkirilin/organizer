@@ -19,8 +19,21 @@ router.param('id', async (request, response, next, id) => {
 });
 
 router.get('/', async (request, response, next) => {
+    const filters = {};
+    const { date } = request.query;
+    const requestedDate = new Date(date);
+    const nextDayDate = new Date(date);
+    nextDayDate.setDate(nextDayDate.getDate() + 1);
+
+    if (date) {
+        filters.date = {
+            $gte: requestedDate.toISOString().slice(0, 10),
+            $lt: nextDayDate.toISOString().slice(0, 10),
+        };
+    }
+
     try {
-        const activities = await Activity.find({});
+        const activities = await Activity.find(filters).sort({ title: 1 });
         response.json(activities);
     } catch (error) {
         next(error);

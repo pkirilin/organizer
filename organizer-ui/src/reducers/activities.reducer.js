@@ -5,7 +5,7 @@ export default function (state = [], action) {
     case ACTIVITIES_REQUEST:
       return state;
     case ACTIVITIES_SUCCESS:
-      return action.groups;
+      return action.activities;
     case ACTIVITIES_ERROR:
       return state;
     default:

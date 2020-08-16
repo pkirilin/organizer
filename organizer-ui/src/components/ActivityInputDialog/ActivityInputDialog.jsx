@@ -13,14 +13,24 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { connect } from 'react-redux';
-import { createActivity, getActivityGroups, CREATE_ACTIVITY_SUCCESS } from '../../actions';
+import {
+  createActivity,
+  getActivityGroups,
+  CREATE_ACTIVITY_SUCCESS,
+  updateActivity,
+  UPDATE_ACTIVITY_SUCCESS,
+  getActivities,
+} from '../../actions';
 
 function ActivityInputDialog({
   title: dialogTitle,
   isOpened = false,
   onClose,
+  activity,
   createActivity,
+  updateActivity,
   getActivityGroups,
+  getActivities,
 }) {
   const [date, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
@@ -37,6 +47,13 @@ function ActivityInputDialog({
       setIsValidTitle(true);
     }
   }, [isValidTitle, title, validateTitleMemo]);
+
+  useEffect(() => {
+    if (activity) {
+      setDate(activity.date);
+      setTitle(activity.title);
+    }
+  }, [activity]);
 
   if (!isOpened) {
     return null;
@@ -58,6 +75,27 @@ function ActivityInputDialog({
     if (type === CREATE_ACTIVITY_SUCCESS) {
       onClose();
       await getActivityGroups();
+    }
+  };
+
+  const handleUpdateActivity = async () => {
+    if (!validateTitle()) {
+      setIsValidTitle(false);
+      return;
+    }
+
+    setIsValidTitle(true);
+
+    const { type } = await updateActivity(activity._id, {
+      date,
+      title,
+    });
+
+    if (type === UPDATE_ACTIVITY_SUCCESS) {
+      onClose();
+
+      console.log(activity.date);
+      await getActivities({ date: activity.date });
     }
   };
 
@@ -91,8 +129,12 @@ function ActivityInputDialog({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleCreateActivity}>
-          Create
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={activity ? handleUpdateActivity : handleCreateActivity}
+        >
+          {activity ? 'Save' : 'Create'}
         </Button>
         <Button variant="text" onClick={onClose}>
           Cancel
@@ -106,11 +148,20 @@ ActivityInputDialog.propTypes = {
   title: PropTypes.string.isRequired,
   isOpened: PropTypes.bool,
   onClose: PropTypes.func,
+  activity: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }),
   createActivity: PropTypes.func,
+  updateActivity: PropTypes.func,
   getActivityGroups: PropTypes.func,
+  getActivities: PropTypes.func,
 };
 
 export default connect(null, dispatch => ({
   createActivity: activity => dispatch(createActivity(activity)),
+  updateActivity: (activityId, activity) => dispatch(updateActivity(activityId, activity)),
   getActivityGroups: () => dispatch(getActivityGroups()),
+  getActivities: filterParams => dispatch(getActivities(filterParams)),
 }))(ActivityInputDialog);
