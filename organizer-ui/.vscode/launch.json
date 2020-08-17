@@ -6,13 +6,6 @@
             "type": "pwa-chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}/organizer-ui"
-        },
-        {
-            "type": "node-terminal",
-            "name": "Start API (dev)",
-            "request": "launch",
-            "command": "npm run dev",
-            "cwd": "${workspaceFolder}/organizer-api"
         }
     ]
 }
