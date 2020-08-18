@@ -8,7 +8,7 @@ import { getActivities } from '../activities.actions';
 import ActivityInputDialog from './ActivityInputDialog';
 import ActivityDeleteDialog from './ActivityDeleteDialog';
 
-function ActivitiesList({ date, activities, getActivities }) {
+export function ActivitiesList({ date, activities, getActivities }) {
   const [editDialogOptions, setEditDialogOptions] = useState({
     isOpened: false,
     activity: null,
