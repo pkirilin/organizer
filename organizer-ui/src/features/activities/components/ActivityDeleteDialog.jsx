@@ -12,7 +12,7 @@ import { deleteActivity, getActivities, getActivityGroups } from '../activities.
 import { DELETE_ACTIVITY_SUCCESS } from '../activities.constants';
 import { connect } from 'react-redux';
 
-function ActivityDeleteDialog({
+export function ActivityDeleteDialog({
   isOpened = false,
   activity = null,
   onClose,

@@ -21,7 +21,7 @@ import {
 } from '../activities.actions';
 import { CREATE_ACTIVITY_SUCCESS, UPDATE_ACTIVITY_SUCCESS } from '../activities.constants';
 
-function ActivityInputDialog({
+export function ActivityInputDialog({
   title: dialogTitle,
   isOpened = false,
   onClose,
