@@ -73,6 +73,7 @@ export function ActivityInputDialog({
 
     if (type === CREATE_ACTIVITY_SUCCESS) {
       onClose();
+      setTitle('');
       await getActivityGroups();
     }
   };
@@ -92,8 +93,7 @@ export function ActivityInputDialog({
 
     if (type === UPDATE_ACTIVITY_SUCCESS) {
       onClose();
-
-      console.log(activity.date);
+      setTitle('');
       await getActivities({ date: activity.date });
     }
   };
